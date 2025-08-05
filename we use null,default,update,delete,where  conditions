@@ -1,0 +1,24 @@
+--use INSERT into for adding rows--
+create database jntua;
+use jntua;
+create table students(id int,name char(255),age int);
+INSERT INTO students (id, name, age)
+VALUES (1, 'kusma', 21),
+       (2, 'lavanya', 22);
+
+--handle missing values using NULL or DEFAULT--
+-- Example with NULL
+INSERT INTO students (id, name, age)
+VALUES (3, 'Rani', NULL);
+
+-- Example with DEFAULT (Assuming age has a DEFAULT value)
+INSERT INTO students (id, name)
+VALUES (4, 'hema');
+
+--use UPDATE and DELETE with WHERE CONDITION.--
+-- UPDATE with WHERE
+UPDATE students
+SET age = 21 WHERE id = 1;
+
+-- DELETE with WHERE
+DELETE FROM students WHERE id = 2;

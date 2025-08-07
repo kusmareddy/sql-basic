@@ -1,0 +1,51 @@
+CREATE TABLE accounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    likes INT,
+    email VARCHAR(255)
+);
+
+-- Insert sample data
+INSERT INTO accounts (name, likes, email) VALUES
+('Alice Johnson', 50, 'alice@gmail.com'),
+('Bob Smith', 120, 'bob@yahoo.com'),
+('Charlie Brown', 80, 'charlie@hotmail.com'),
+('Diana Prince', 200, 'diana@gmail.com'),
+('Eve Adams', 30, 'eve@yahoo.com');
+
+
+
+SELECT * FROM accounts;
+
+
+SELECT name, email FROM accounts;
+
+SELECT*FROM accounts WHERE likes=50;
+
+
+SELECT * FROM accounts WHERE likes > 100;
+
+
+SELECT * FROM accounts
+WHERE email LIKE '%gmail.com' AND likes > 100;
+
+
+SELECT * FROM accounts
+WHERE likes < 50 OR email LIKE '%yahoo.com';
+
+
+SELECT * FROM accounts WHERE name LIKE 'D%';
+
+
+SELECT * FROM accounts WHERE likes BETWEEN 50 AND 150;
+
+
+
+
+SELECT * FROM accounts ORDER BY likes ASC;
+
+
+SELECT * FROM accounts ORDER BY likes DESC;
+
+
+SELECT * FROM accounts ORDER BY name ASC;

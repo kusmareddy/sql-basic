@@ -1,0 +1,38 @@
+create database business;
+use business;
+-- 1. Create the table
+CREATE TABLE sales (
+    id INT,
+    region VARCHAR(50),
+    salesperson VARCHAR(50),
+    revenue DECIMAL(10,2)
+);
+
+-- 2. Insert sample data
+INSERT INTO sales (id, region, salesperson, revenue) VALUES
+(1, 'North', 'Kusma', 50000),
+(2, 'North', 'Uday', 60000),
+(3, 'South', 'Lavanya', 30000),
+(4, 'South', 'Jai', 20000),
+(5, 'East', 'Nani', 80000),
+(6, 'East', 'Suri', 90000),
+(7, 'West', 'Ram', 40000),
+(8, 'West', 'Pavan', 10000);
+
+
+select*from sales;
+--aggregate functions
+select max(revenue) from sales;
+select min(revenue) from sales;
+select avg(revenue) from sales;
+select count(revenue) from sales;
+select sum(revenue) from sales;
+
+
+
+
+
+-- 3. Use aggregate function with GROUP BY and HAVING
+SELECT region, SUM(revenue) AS total_revenue FROM sales
+GROUP BY region
+HAVING SUM(revenue) > 100000;

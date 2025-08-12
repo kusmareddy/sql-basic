@@ -1,0 +1,65 @@
+
+CREATE DATABASE Subqueries;
+USE Subqueries;
+CREATE TABLE Departments (
+    DeptID INT PRIMARY KEY,
+    DeptName VARCHAR(50)
+);
+
+CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50),
+    Salary INT,
+    DeptID INT,
+    FOREIGN KEY (DeptID) REFERENCES Departments(DeptID)
+);
+
+SELECT*FROM Employees;
+
+INSERT INTO Departments VALUES (1, 'HR'), (2, 'Engineering'), (3, 'Marketing');
+
+INSERT INTO Employees VALUES
+(101, 'Alice', 70000, 1),
+(102, 'Bob', 90000, 2),
+(103, 'Charlie', 120000, 2),
+(104, 'David', 60000, 3),
+(105, 'Eva', 95000, 3);
+
+SELECT*FROM Departments;
+SELECT EmpName, Salary
+FROM Employees
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
+
+
+
+SELECT EmpName, Salary
+FROM Employees E
+WHERE Salary > (
+    SELECT AVG(Salary)
+    FROM Employees
+    WHERE DeptID = E.DeptID
+);
+
+
+SELECT EmpName, DeptID
+FROM Employees
+WHERE DeptID IN (
+    SELECT DeptID
+    FROM Employees
+    WHERE Salary > 100000
+);
+
+
+SELECT DeptNameFROM Departments D
+WHERE EXISTS (
+    SELECT 1
+    FROM Employees E
+    WHERE E.DeptID = D.DeptID AND E.Salary > 90000
+);
+
+
+SELECT EmpName, Salary,
+    (SELECT AVG(Salary)
+     FROM Employees E2
+     WHERE E2.DeptID = E1.DeptID) AS DeptAvgSalary
+FROM Employees E1;

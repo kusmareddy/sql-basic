@@ -1,0 +1,43 @@
+CREATE database newtable;
+USE newtable;
+CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50),
+    Salary DECIMAL(10,2),
+    Department VARCHAR(50)
+);
+
+INSERT INTO Employees VALUES
+(1, 'gowthami', 55000, 'IT'),
+(2, 'kusma', 45000, 'HR'),
+(3, 'bhargavi', 70000, 'Finance');
+DELIMITER $$
+
+CREATE PROCEDURE GetEmployeesBySalary(IN minSalary DECIMAL(10,2))
+BEGIN
+    IF minSalary > 0 THEN
+        SELECT * FROM Employees WHERE Salary >= minSalary;
+    ELSE
+        SELECT 'Invalid Salary Value' AS Message;
+    END IF;
+END $$
+
+DELIMITER ;
+DELIMITER $$
+
+CREATE FUNCTION GetBonus(salary DECIMAL(10,2))
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+    DECLARE bonus DECIMAL(10,2);
+
+    IF salary >= 60000 THEN
+        SET bonus = salary * 0.10; -- 10% bonus
+    ELSE
+        SET bonus = salary * 0.05; -- 5% bonus
+    END IF;
+
+    RETURN bonus;
+END $$
+
+DELIMITER ;
